@@ -108,21 +108,6 @@ function getLogStatements(editor: vscode.TextEditor): vscode.Range[] {
   return logStatements;
 }
 
-// 检查当前文件中是否存在指定类型的 console 命令
-function checkLogTypeExists(
-  document: vscode.TextDocument,
-  logTypes: string[]
-): boolean {
-  const regex = new RegExp(
-    `console\\.(${logTypes.join("|")})\\([^)]*\\);?`,
-    "g"
-  );
-  const fullDocumentRange = document.validateRange(
-    new vscode.Range(0, 0, Number.MAX_VALUE, Number.MAX_VALUE)
-  );
-  return document.getText().match(regex) !== null;
-}
-
 // 删除当前文件中所有指定类型的 console 命令
 function deleteAllLogStatements(
   editBuilder: vscode.TextEditorEdit,
@@ -146,12 +131,7 @@ function deleteAllLogStatements(
     );
 
     if (fullDocumentRange.contains(range)) {
-      console.log("hello-->range:", range);
-      console.log("hello-->range:", range);
-      console.log("hello-->range:", range);
-      console.log("hello-->range:", range);
-      console.log("hello-->range:", range);
-      console.log("hello-->range:", range);
+      editBuilder.delete(range);
     }
   }
 }
