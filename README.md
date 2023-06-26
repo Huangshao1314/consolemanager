@@ -17,12 +17,12 @@ This extension contributes the following settings:
 - `consoleManager.logType`: The type of log statement to insert
 - `consoleManager.logPrefix`: The prefix for the log statement.
 
-## Known Issues
-
 ## Release Notes
-
-Users appreciate release notes as you update your extension.
 
 ### 0.0.1
 
 Initial release of ConsoleManager, feature add and delete console.
+
+### 0.0.3
+
+fix image resources are not effective

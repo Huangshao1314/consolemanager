@@ -52,6 +52,13 @@ function insertLog() {
 
   const selection = editor.selection;
   const selectedText = editor.document.getText(selection);
+  if (!selectedText) {
+    return;
+  }
+  const endPosition = selection.end;
+  const line = editor.document.lineAt(endPosition);
+
+  const indent = line.text.match(/^\s*/)?.[0] || "";
 
   const logType = vscode.workspace
     .getConfiguration()
@@ -62,10 +69,16 @@ function insertLog() {
   const logStatement = `console.${logType}('${logPrefix}${selectedText}:', ${selectedText});\n`;
 
   // 获取选中行的行号和起始位置
-  const selectedLineNumber = selection.active.line;
-  const insertPosition = new vscode.Position(selectedLineNumber + 1, 0);
+  // const selectedLineNumber = selection.active.line;
+  // const insertPosition = new vscode.Position(selectedLineNumber + 1, 0);
+  // editor.edit((editBuilder) => {
+  //   editBuilder.insert(insertPosition, logStatement);
+  // });
   editor.edit((editBuilder) => {
-    editBuilder.insert(insertPosition, logStatement);
+    editBuilder.insert(
+      new vscode.Position(endPosition.line + 1, 0),
+      indent + logStatement
+    );
   });
 }
 

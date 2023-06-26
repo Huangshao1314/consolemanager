@@ -2,7 +2,7 @@
   "name": "console-manager",
   "displayName": "console-manager",
   "description": "A lightweight plugin for console output that supports high customization, including adding, deleting, managing output content, log types, and more",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "publisher": "HuangShao",
   "repository": {
     "type": "git",
@@ -70,6 +70,9 @@
           "markdownDescription": "The prefix for the log statement. Default is `selectedText:`."
         }
       }
+    },
+    "icon": {
+      "iconPath": "images/icon.png"
     }
   },
   "scripts": {
