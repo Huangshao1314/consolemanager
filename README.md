@@ -6,9 +6,14 @@ This is a front-end log Console Manager. Supports all languages running in JavaS
 
 ![console manager](./images/console.gif)
 
+It has the following functions:
+
+- add console : press `shift+ctr+l` to add console and type controlled by  `logType` configuration.
+- delete console: press `shift+ctr+d` to delete logs focused active code.
+
 ## Requirements
 
-vscode version is up 1.74.0. This is running in JavaScript environments.
+vscode version is up 1.0.0. This is running in JavaScript environments.
 
 ## Extension Settings
 

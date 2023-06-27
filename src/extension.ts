@@ -40,7 +40,6 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
   );
-
   context.subscriptions.push(deleteLogCommand);
 }
 
@@ -65,47 +64,15 @@ function insertLog() {
     .get("consoleManager.logType", "log");
   const logPrefix = vscode.workspace
     .getConfiguration()
-    .get("consoleManager.logPrefix", `${selectedText}:`);
+    .get("consoleManager.logPrefix");
   const logStatement = `console.${logType}('${logPrefix}${selectedText}:', ${selectedText});\n`;
 
-  // 获取选中行的行号和起始位置
-  // const selectedLineNumber = selection.active.line;
-  // const insertPosition = new vscode.Position(selectedLineNumber + 1, 0);
-  // editor.edit((editBuilder) => {
-  //   editBuilder.insert(insertPosition, logStatement);
-  // });
   editor.edit((editBuilder) => {
     editBuilder.insert(
       new vscode.Position(endPosition.line + 1, 0),
       indent + logStatement
     );
   });
-}
-
-// 获取当前行中所有 console.log、console.warn、console.error 语句的范围
-function getLogStatements(editor: vscode.TextEditor): vscode.Range[] {
-  const logStatements: vscode.Range[] = [];
-  const line = editor.selection.active.line;
-  const logTypes = ["log", "warn", "error"];
-  const regex = new RegExp(
-    `console\\.(${logTypes.join("|")})\\([^)]*\\);?`,
-    "g"
-  );
-  const document = editor.document;
-  const lineCount = document.lineCount;
-  let match;
-
-  while ((match = regex.exec(document.lineAt(line).text))) {
-    const startPosition = new vscode.Position(line, match.index);
-    const endPosition = new vscode.Position(
-      line,
-      match.index + match[0].length
-    );
-    const range = new vscode.Range(startPosition, endPosition);
-    logStatements.push(range);
-  }
-
-  return logStatements;
 }
 
 // 删除当前文件中所有指定类型的 console 命令
